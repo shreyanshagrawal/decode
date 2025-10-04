@@ -26,6 +26,7 @@ const LoginPage = () => {
 
             // Save token
             localStorage.setItem("token", data.token);
+            console.log(localStorage.getItem("token"));
             alert("Login successful!");
             window.location.href = "/dashboard";
         } catch (error) {
