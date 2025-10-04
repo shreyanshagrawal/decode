@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 
-import { connectDB } from "./config/db.js";
+import { MentorDB } from "./config/db.js";
 
 import mentorsRoutes from "./routes/mentors.route.js";
 
@@ -25,6 +25,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, () => {
-	connectDB();
+	MentorDB();
 	console.log("Server started at http://localhost:" + PORT);
 });
+

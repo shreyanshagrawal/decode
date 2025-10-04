@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const mentorsSchema = new mongoose.Schema(
   {
-    repo: {
+    email: {
       type: String,
       required: true,
     },
-    type: {
+    password: {
       type: String,
       required: true,
     },
