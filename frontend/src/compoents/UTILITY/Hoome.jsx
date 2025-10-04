@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from "/Users/hridayrajsinghkrishnawat/Desktop/dcode/frontend/src/compoents/loginpage/login.jsx"
+import Login from "../loginpage/mentorLogin.jsx"
 
 
 function Hoome() {

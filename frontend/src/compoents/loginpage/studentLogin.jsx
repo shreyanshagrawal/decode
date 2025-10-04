@@ -5,11 +5,34 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Add login logic here
-    console.log('Logging in with:', { email, password });
-  };
+const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(JSON.stringify({ email, password }));
+            const response = await fetch("http://localhost:3001/api/students/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message || "Login failed");
+                return;
+            }
+
+            // Save token
+            localStorage.setItem("token", data.token);
+            alert("Login successful!");
+            window.location.href = "/dashboard";
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Something went wrong.");
+        }
+    };
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">
