@@ -14,7 +14,7 @@ export const getMentors = async (req, res) => {
 export const createMentors = async (req, res) => {
 	const mentors = req.body; // user will send this data
 
-	if ( !mentors.email || !mentors.password) {
+	if ( !mentors.name ||!mentors.email || !mentors.password) {
 		return res.status(400).json({ success: false, message: "Please provide all fields" });
 	}
 

@@ -14,7 +14,7 @@ export const getStudents = async (req, res) => {
 export const createStudents = async (req, res) => {
 	const students = req.body; // user will send this data
 
-	if ( !students.email || !students.password) {
+	if ( !students.name || !students.email || !students.password) {
 		return res.status(400).json({ success: false, message: "Please provide all fields" });
 	}
 
