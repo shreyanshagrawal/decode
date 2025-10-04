@@ -5,12 +5,12 @@ import { useProductStore } from "../store/product";
 import ProductCard from "../components/ProductCard";
 
 const HomePage = () => {
-	const { fetchProducts, products } = useProductStore();
+	const { fetchProducts, students } = useProductStore();
 
 	useEffect(() => {
 		fetchProducts();
 	}, [fetchProducts]);
-	console.log("products", products);
+	console.log("students", students);
 
 	return (
 		<Container maxW='container.xl' py={12}>
@@ -34,14 +34,14 @@ const HomePage = () => {
 					spacing={10}
 					w={"full"}
 				>
-					{products.map((product) => (
+					{students.map((product) => (
 						<ProductCard key={product._id} product={product} />
 					))}
 				</SimpleGrid>
 
-				{products.length === 0 && (
+				{students.length === 0 && (
 					<Text fontSize='xl' textAlign={"center"} fontWeight='bold' color='gray.500'>
-						No products found 😢{" "}
+						No students found 😢{" "}
 						<Link to={"/create"}>
 							<Text as='span' color='blue.500' _hover={{ textDecoration: "underline" }}>
 								Create a product

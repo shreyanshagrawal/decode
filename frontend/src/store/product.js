@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
-	products: [],
-	setProducts: (products) => set({ products }),
+	students: [],
+	setProducts: (students) => set({ students }),
 	createProduct: async (newProduct) => {
 		if (!newProduct.name || !newProduct.image || !newProduct.price) {
 			return { success: false, message: "Please fill in all fields." };
 		}
-		const res = await fetch("/api/products", {
+		const res = await fetch("/api/students", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -15,27 +15,27 @@ export const useProductStore = create((set) => ({
 			body: JSON.stringify(newProduct),
 		});
 		const data = await res.json();
-		set((state) => ({ products: [...state.products, data.data] }));
+		set((state) => ({ students: [...state.students, data.data] }));
 		return { success: true, message: "Product created successfully" };
 	},
 	fetchProducts: async () => {
-		const res = await fetch("/api/products");
+		const res = await fetch("/api/students");
 		const data = await res.json();
-		set({ products: data.data });
+		set({ students: data.data });
 	},
 	deleteProduct: async (pid) => {
-		const res = await fetch(`/api/products/${pid}`, {
+		const res = await fetch(`/api/students/${pid}`, {
 			method: "DELETE",
 		});
 		const data = await res.json();
 		if (!data.success) return { success: false, message: data.message };
 
 		// update the ui immediately, without needing a refresh
-		set((state) => ({ products: state.products.filter((product) => product._id !== pid) }));
+		set((state) => ({ students: state.students.filter((product) => product._id !== pid) }));
 		return { success: true, message: data.message };
 	},
 	updateProduct: async (pid, updatedProduct) => {
-		const res = await fetch(`/api/products/${pid}`, {
+		const res = await fetch(`/api/students/${pid}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const useProductStore = create((set) => ({
 
 		// update the ui immediately, without needing a refresh
 		set((state) => ({
-			products: state.products.map((product) => (product._id === pid ? data.data : product)),
+			students: state.students.map((product) => (product._id === pid ? data.data : product)),
 		}));
 
 		return { success: true, message: data.message };
