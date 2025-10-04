@@ -5,6 +5,7 @@ import path from "path";
 import { MentorDB } from "./config/db.js";
 
 import mentorsRoutes from "./routes/mentors.route.js";
+import studentsRoutes from "./routes/students.route.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ const __dirname = path.resolve();
 app.use(express.json()); // allows us to accept JSON data in the req.body
 
 app.use("/api/mentors", mentorsRoutes);
+app.use("/api/students", studentsRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));
