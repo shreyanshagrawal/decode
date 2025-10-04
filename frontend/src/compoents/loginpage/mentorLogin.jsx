@@ -3,18 +3,19 @@ import React, { useState } from "react";
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            console.log(JSON.stringify({ email, password }));
+            console.log(JSON.stringify({ name, email, password }));
             const response = await fetch("http://localhost:3001/api/mentors/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ name, email, password }),
             });
 
             const data = await response.json();
@@ -54,6 +55,18 @@ const LoginPage = () => {
 
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
+                        <label className="block mb-1">Full Name</label>
+                        <input
+                            type="text"
+                            placeholder="Enter you name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-4 relative">
                         <label className="block mb-1">Email Address</label>
                         <input
                             type="email"
@@ -64,6 +77,7 @@ const LoginPage = () => {
                             required
                         />
                     </div>
+
 
                     <div className="mb-4 relative">
                         <label className="block mb-1">Password</label>

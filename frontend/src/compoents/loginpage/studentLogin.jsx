@@ -3,18 +3,19 @@ import React, { useState } from "react";
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            console.log(JSON.stringify({ email, password }));
+            console.log(JSON.stringify({ name, email, password }));
             const response = await fetch("http://localhost:3001/api/students/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ naem, email, password }),
             });
 
             const data = await response.json();
@@ -33,6 +34,7 @@ const LoginPage = () => {
             alert("Something went wrong.");
         }
     };
+
     return (
         <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">
             <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
@@ -52,6 +54,18 @@ const LoginPage = () => {
                 <div className="text-center text-gray-400 mb-4">or</div>
 
                 <form onSubmit={handleLogin}>
+                    <div className="mb-4">
+                        <label className="block mb-1">Full Name</label>
+                        <input
+                            type="text"
+                            placeholder="Enter you name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
+                            required
+                        />
+                    </div>
+                    
                     <div className="mb-4">
                         <label className="block mb-1">Email Address</label>
                         <input
