@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const mentorsSchema = new mongoose.Schema(
+// Export schema to allow model creation per-connection
+export const mentorsSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -16,6 +17,7 @@ const mentorsSchema = new mongoose.Schema(
   },
 );
 
+// Backwards-compatible default export bound to the default mongoose connection.
+// In multi-cluster usage, prefer creating models per-connection via getModel().
 const Mentors = mongoose.model("Mentors", mentorsSchema);
-
 export default Mentors;

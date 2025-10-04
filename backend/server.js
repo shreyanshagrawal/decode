@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 
-import { MentorDB } from "./config/db.js";
+import { connectClusters, getClusterNames } from "./config/db.js";
 
 import mentorsRoutes from "./routes/mentors.route.js";
 
@@ -24,8 +24,14 @@ if (process.env.NODE_ENV === "production") {
 	});
 }
 
-app.listen(PORT, () => {
-	MentorDB();
-	console.log("Server started at http://localhost:" + PORT);
+app.listen(PORT, async () => {
+    try {
+        await connectClusters();
+        console.log("DB clusters initialized:", getClusterNames());
+    } catch (err) {
+        console.error("Failed to initialize DB clusters:", err.message);
+        process.exit(1);
+    }
+    console.log("Server started at http://localhost:" + PORT);
 });
 

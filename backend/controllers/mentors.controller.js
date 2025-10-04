@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
-import Mentors from "../models/mentors.model.js";
+import Mentors, { mentorsSchema } from "../models/mentors.model.js";
+import { getClusterFromRequest, getConnection, getModel } from "../config/db.js";
 
 export const getMentors = async (req, res) => {
 	try {
-		const mentors = await Mentors.find({});
+        const clusterName = getClusterFromRequest(req);
+        const conn = getConnection(clusterName);
+        const MentorsModel = getModel(conn, "Mentors", mentorsSchema);
+        const mentors = await MentorsModel.find({});
 		res.status(200).json({ success: true, data: mentors });
 	} catch (error) {
 		console.log("error in fetching mentors:", error.message);
@@ -18,10 +22,13 @@ export const createMentors = async (req, res) => {
 		return res.status(400).json({ success: false, message: "Please provide all fields" });
 	}
 
-	const newMentors = new Mentors(mentors);
+    try {
+        const clusterName = getClusterFromRequest(req);
+        const conn = getConnection(clusterName);
+        const MentorsModel = getModel(conn, "Mentors", mentorsSchema);
+        const newMentors = new MentorsModel(mentors);
 
-	try {
-		await newMentors.save();
+        await newMentors.save();
 		res.status(201).json({ success: true, data: newMentors });
 	} catch (error) {
 		console.error("Error in Create mentors:", error.message);
@@ -38,8 +45,11 @@ export const updateMentors = async (req, res) => {
 		return res.status(404).json({ success: false, message: "Invalid Mentors Id" });
 	}
 
-	try {
-		const updatedMentors = await Mentors.findByIdAndUpdate(id, mentors, { new: true });
+    try {
+        const clusterName = getClusterFromRequest(req);
+        const conn = getConnection(clusterName);
+        const MentorsModel = getModel(conn, "Mentors", mentorsSchema);
+        const updatedMentors = await MentorsModel.findByIdAndUpdate(id, mentors, { new: true });
 		res.status(200).json({ success: true, data: updatedMentors });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Server Error" });
@@ -53,8 +63,11 @@ export const deleteMentors = async (req, res) => {
 		return res.status(404).json({ success: false, message: "Invalid Mentors Id" });
 	}
 
-	try {
-		await Mentors.findByIdAndDelete(id);
+    try {
+        const clusterName = getClusterFromRequest(req);
+        const conn = getConnection(clusterName);
+        const MentorsModel = getModel(conn, "Mentors", mentorsSchema);
+        await MentorsModel.findByIdAndDelete(id);
 		res.status(200).json({ success: true, message: "Mentors deleted" });
 	} catch (error) {
 		console.log("error in deleting mentors:", error.message);
