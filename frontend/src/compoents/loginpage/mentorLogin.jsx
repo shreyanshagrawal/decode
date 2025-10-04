@@ -49,7 +49,7 @@ const LoginPage = () => {
                         alt="GitHub"
                         className="w-5 h-5 mr-2"
                     />
-                    Sign in with GitHub
+                    Sign Up with GitHub
                 </button>
 
                 <div className="text-center text-gray-400 mb-4">or</div>
@@ -102,7 +102,7 @@ const LoginPage = () => {
                         type="submit"
                         className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
                     >
-                        Sign In
+                        Sign Up
                     </button>
                 </form>
 
@@ -113,9 +113,9 @@ const LoginPage = () => {
                 </div>
 
                 <div className="text-center mt-6 text-gray-400">
-                    Don't have an account?{" "}
+                    I have an account?{" "}
                     <a href="#" className="text-green-400 hover:underline">
-                        Sign Up
+                        Sign In
                     </a>
                 </div>
             </div>
