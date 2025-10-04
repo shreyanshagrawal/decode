@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -10,12 +11,12 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             console.log(JSON.stringify({ name, email, password }));
-            const response = await fetch("http://localhost:3001/api/students/", {
+            const response = await fetch("http://localhost:3001/api/student/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ naem, email, password }),
+                body: JSON.stringify({ name, email, password }),
             });
 
             const data = await response.json();
@@ -48,7 +49,7 @@ const LoginPage = () => {
                         alt="GitHub"
                         className="w-5 h-5 mr-2"
                     />
-                    Sign in with GitHub
+                    Sign Up with GitHub
                 </button>
 
                 <div className="text-center text-gray-400 mb-4">or</div>
@@ -65,8 +66,8 @@ const LoginPage = () => {
                             required
                         />
                     </div>
-                    
-                    <div className="mb-4">
+
+                    <div className="mb-4 relative">
                         <label className="block mb-1">Email Address</label>
                         <input
                             type="email"
@@ -77,6 +78,7 @@ const LoginPage = () => {
                             required
                         />
                     </div>
+
 
                     <div className="mb-4 relative">
                         <label className="block mb-1">Password</label>
@@ -100,7 +102,7 @@ const LoginPage = () => {
                         type="submit"
                         className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
                     >
-                        Sign In
+                        Sign Up
                     </button>
                 </form>
 
@@ -111,9 +113,9 @@ const LoginPage = () => {
                 </div>
 
                 <div className="text-center mt-6 text-gray-400">
-                    Don't have an account?{" "}
+                    I have an account?{" "}
                     <a href="#" className="text-green-400 hover:underline">
-                        Sign Up
+                        <Link to="/dashboard">Sign In</Link>
                     </a>
                 </div>
             </div>
