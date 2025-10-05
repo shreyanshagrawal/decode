@@ -28,7 +28,6 @@ const LoginPage = () => {
 
             if (student?._id) localStorage.setItem("studentId", student._id);
             if (student?.name) localStorage.setItem("studentName", student.name);
-            console.log("Student data:", fetch("http://localhost:3001/api/students/123"));
 
 
             alert("Login successful!");
