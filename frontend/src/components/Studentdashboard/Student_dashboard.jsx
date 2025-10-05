@@ -1,6 +1,6 @@
 // Dashboard.jsx
 import React from "react";
-import ProfileCard from "../ProfileCard";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -11,7 +11,7 @@ const Dashboard = () => {
         <div className="flex justify-center mb-6">
           <div className="w-24 h-24 rounded-full bg-gray-800 flex items-center justify-center">
             <img
-              src="../Images/girldashboardpfp.jpg" // replace with actual avatar image path
+              src= "./Images/src/components/Images/girldashboardpfp.jpg" // replace with actual avatar image path
               alt="avatar"
               className="w-20 h-20 rounded-full"
             />
@@ -27,7 +27,7 @@ const Dashboard = () => {
         </div>
 
         {/* Description */}
-        <p className="mt-4 text-gray-400 text-sm leading-relaxed">
+        <p className="mt-4 text-gray-400 text-xl leading-relaxed">
           Passionate about building developer tools and fostering inclusive
           communities. Core maintainer of 12+ projects with 50K+ stars.
           Mentoring the next generation of open-source contributors.
@@ -35,7 +35,7 @@ const Dashboard = () => {
 
         {/* Button */}
         <button className="mt-6 px-6 py-3 bg-white text-black font-medium rounded-lg shadow-md hover:bg-gray-200 transition">
-          ⬇ Mentorship
+          <Link to="/mainstudentdashboard/mainmentorship">⬇ Mentorship</Link>
         </button>
       </div>
     </div>

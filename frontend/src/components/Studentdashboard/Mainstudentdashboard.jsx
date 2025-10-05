@@ -4,7 +4,7 @@ import Student_dashboard_navbar from './Student_dashboard_navbar.jsx'
 import QuickStats from './Quick_stats.jsx'
 import RepositoriesImpact from './Dashboard_stats.jsx'
 
-function mainstudentdashboard() {
+function Mainstudentdashboard() {
   return (
     <>
       <Student_dashboard_navbar/>
@@ -15,4 +15,4 @@ function mainstudentdashboard() {
   )
 }
 
-export default mainstudentdashboard()
+export default Mainstudentdashboard;
