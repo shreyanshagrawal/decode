@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -11,7 +10,6 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             console.log(JSON.stringify({ name, email, password }));
-
             const response = await fetch("http://localhost:3001/api/students/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
