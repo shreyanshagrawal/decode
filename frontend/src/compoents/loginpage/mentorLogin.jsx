@@ -10,6 +10,7 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             console.log(JSON.stringify({ name, email, password }));
+
             const response = await fetch("http://localhost:3001/api/mentors/", {
                 method: "POST",
                 headers: {
@@ -25,10 +26,15 @@ const LoginPage = () => {
                 return;
             }
 
-            // Save token
-            localStorage.setItem("token", data.token);
-            console.log(localStorage.getItem("token"));
+            // ✅ Save token and userId in localStorage
+            if (data.token) localStorage.setItem("token", data.token);
+            if (data.student?._id)
+                localStorage.setItem("studentId", data.student._id);
+
             alert("Login successful!");
+            console.log("User ID saved:", localStorage.getItem("studentId"));
+
+            // Redirect to dashboard
             window.location.href = "/dashboard";
         } catch (error) {
             console.error("Login error:", error);
