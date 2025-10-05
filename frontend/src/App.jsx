@@ -1,13 +1,10 @@
 import React from 'react'
 import './App.css'
-import Hoome from './compoents/UTILITY/Hoome'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
-import Dashboard from './compoents/dashboad/student_dashboard.jsx'
-import MentorLogin from './compoents/loginpage/mentorLogin.jsx'
-import StudentLogin from './compoents/loginpage/studentLogin.jsx'
-
-
-
+import Hoome from './components/UTILITY/Hoome.jsx' 
+import MentorLogin from './components/login/MentorLogin.jsx'
+import StudentLogin from './components/login/StudentLogin.jsx'
+import Mainstudentdashboard from "./components/Studentdashboard/Mainstudentdashboard.jsx"
 
 function App() {
 
@@ -16,10 +13,10 @@ function App() {
     <>
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={ <Hoome/> }/>
+      <Route path='/' element={<Hoome/>}/>
       <Route path='/mentorlogin' element={ <MentorLogin /> }/>
       <Route path='/studentlogin' element={<StudentLogin />}/>
-      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/mainstudentdashboard' element={<Mainstudentdashboard/>}/>
     </Routes>
     </BrowserRouter>
     </>

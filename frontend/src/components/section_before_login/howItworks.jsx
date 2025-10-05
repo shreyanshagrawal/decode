@@ -34,7 +34,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col items-center py-16 px-6">
+    <div className="bg-black text-white flex flex-col items-center py-16 px-6">
       {/* Header */}
       <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center">
         How It <span className="text-lime-400">Works</span>
