@@ -114,9 +114,9 @@ const LoginPage = () => {
 
                 <div className="text-center mt-6 text-gray-400">
                     I have an account?{" "}
-                    <a href="#" className="text-green-400 hover:underline">
+                    {/* <a href="#" className="text-green-400 hover:underline"> */}
                         <Link to="/mainstudentdashboard">Sign In</Link>
-                    </a>
+                    {/* </a> */}
                 </div>
             </div>
         </div>
