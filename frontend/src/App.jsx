@@ -5,6 +5,7 @@ import Hoome from './components/UTILITY/Hoome.jsx'
 import MentorLogin from './components/loginpage/MentorLogin.jsx'
 import StudentLogin from './components/loginpage/StudentLogin.jsx'
 import Mainstudentdashboard from './components/Studentdashboard/Mainstudentdashboard.jsx'
+import Mainmentorship from './components/mentorship/mainmentorship.jsx'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Route path='/mentorlogin' element={ <MentorLogin /> }/>
       <Route path='/studentlogin' element={<StudentLogin />}/>
       <Route path='/mainstudentdashboard' element={<Mainstudentdashboard/>}/>
+      <Route path='/mainstudentdashboard/mainmentorship' element={<Mainmentorship />}/>
 
     </Routes>
     </BrowserRouter>
