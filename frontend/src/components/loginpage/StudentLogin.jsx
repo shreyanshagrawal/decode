@@ -29,7 +29,7 @@ const LoginPage = () => {
             // Save token
             localStorage.setItem("token", data.token);
             alert("Login successful!");
-            window.location.href = "/dashboard";
+            window.location.href = "/student_dashboard";
         } catch (error) {
             console.error("Login error:", error);
             alert("Something went wrong.");
@@ -115,7 +115,7 @@ const LoginPage = () => {
                 <div className="text-center mt-6 text-gray-400">
                     I have an account?{" "}
                     <a href="#" className="text-green-400 hover:underline">
-                        <Link to="/dashboard">Sign In</Link>
+                        <Link to="/mainstudentdashboard">Sign In</Link>
                     </a>
                 </div>
             </div>

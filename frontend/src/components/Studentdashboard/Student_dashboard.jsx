@@ -3,13 +3,14 @@ import React from "react";
 
 const ProfileCard = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
+
+    <div className=" flex items-center justify-center bg-black text-white pb-70">
       <div className="text-center p-6 rounded-2xl max-w-md">
         {/* Avatar */}
         <div className="flex justify-center mb-6">
           <div className="w-24 h-24 rounded-full bg-gray-800 flex items-center justify-center">
             <img
-              src="/avatar.png" // replace with actual avatar image path
+              src="../Images/girldashboardpfp.jpg" // replace with actual avatar image path
               alt="avatar"
               className="w-20 h-20 rounded-full"
             />
@@ -33,7 +34,7 @@ const ProfileCard = () => {
 
         {/* Button */}
         <button className="mt-6 px-6 py-3 bg-white text-black font-medium rounded-lg shadow-md hover:bg-gray-200 transition">
-          ⬇ Generate Shareable CV
+          ⬇ Mentorship
         </button>
       </div>
     </div>
