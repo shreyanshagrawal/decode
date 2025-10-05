@@ -36,7 +36,7 @@ const HeroSection = () => {
         </button>
         <button className="flex items-center gap-2 px-6 py-3 border border-lime-400 text-lime-400 rounded-xl hover:bg-lime-400 hover:text-black transition">
           <Code className="w-5 h-5" />
-          <Link to="/studentLogin">Student</Link>
+          <Link to="/studentlogin">Student</Link>
         </button>
       </div>
 

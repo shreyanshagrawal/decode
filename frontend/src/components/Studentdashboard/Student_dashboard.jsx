@@ -1,11 +1,18 @@
-// Dashboard.jsx
-import React from "react";
-import ProfileCard from "../ProfileCard";
+import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  return (
+  const [studentName, setStudentName] = useState(""); // state to store name
 
-    <div className=" flex items-center justify-center bg-black text-white pb-70">
+  useEffect(() => {
+    // Get the name from localStorage
+    const nameFromStorage = localStorage.getItem("studentName");
+    if (nameFromStorage) {
+      setStudentName(nameFromStorage);
+    }
+  }, []); // run once when component mounts
+
+  return (
+    <div className="flex items-center justify-center bg-black text-white pb-70">
       <div className="text-center p-6 rounded-2xl max-w-md">
         {/* Avatar */}
         <div className="flex justify-center mb-6">
@@ -19,7 +26,9 @@ const Dashboard = () => {
         </div>
 
         {/* Name */}
-        <h1 className="text-3xl font-bold">Alex Rodriguez</h1>
+        <h1 className="text-3xl font-bold">
+          {studentName || "Guest"} {/* fallback if name not found */}
+        </h1>
 
         {/* Role Tag */}
         <div className="mt-3 inline-block bg-gray-900 border border-gray-700 px-4 py-1 rounded-full text-sm font-medium">
