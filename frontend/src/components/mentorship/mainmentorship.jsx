@@ -13,4 +13,4 @@ function mainmentorship() {
   )
 }
 
-export default mainmentorship
+export default mainmentorship;

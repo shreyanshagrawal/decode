@@ -7,6 +7,8 @@ import { MentorDB } from "./config/db.js";
 
 import mentorsRoutes from "./routes/mentors.route.js";
 import studentsRoutes from "./routes/students.route.js";
+import matchingRoutes from "./routes/matchingRoutes.js";
+
 
 
 
@@ -28,6 +30,7 @@ app.use(express.json()); // allows us to accept JSON data in the req.body
 
 app.use("/api/mentors", mentorsRoutes);
 app.use("/api/students", studentsRoutes);
+app.use("/api/matching", matchingRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));

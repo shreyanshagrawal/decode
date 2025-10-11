@@ -1,17 +1,23 @@
-// Navbar.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const nameFromStorage = localStorage.getItem("studentName");
+    if (nameFromStorage) setUsername(nameFromStorage);
+  }, []);
+
   return (
     <nav className="w-full bg-black text-white flex items-center justify-between px-6 py-3 pb-50">
       {/* Left section: Avatar + username */}
       <div className="flex items-center gap-3">
         <img
-          src="/avatar.png" // replace with actual avatar image path
+          src="./avatar.jpg" // replace with actual avatar image path
           alt="avatar"
           className="w-8 h-8 rounded-full"
         />
-        <span className="font-medium">alexmaintainer</span>
+        <span className="font-medium">{username || "Guest"}</span>
       </div>
 
       {/* Center: Search bar */}
