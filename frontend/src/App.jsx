@@ -1,13 +1,12 @@
 import React from 'react'
 import './App.css'
-import Hoome from './compoents/UTILITY/Hoome'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
-import Dashboard from './compoents/dashboad/student_dashboard.jsx'
-import MentorLogin from './compoents/loginpage/mentorLogin.jsx'
-import StudentLogin from './compoents/loginpage/studentLogin.jsx'
-
-
-
+import Hoome from './components/UTILITY/Hoome.jsx' 
+import MentorLogin from './components/loginpage/MentorLogin.jsx'
+import StudentLogin from './components/loginpage/StudentLogin.jsx'
+import Mainstudentdashboard from './components/Studentdashboard/Mainstudentdashboard.jsx'
+import Mainmentorship from './components/mentorship/mainmentorship.jsx'
+import Mentor_Dashboard from './components/mentorship/mentorshipdashboard.jsx'
 
 function App() {
 
@@ -16,10 +15,14 @@ function App() {
     <>
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={ <Hoome/> }/>
+      <Route path='/' element={<Hoome/>}/>
       <Route path='/mentorlogin' element={ <MentorLogin /> }/>
       <Route path='/studentlogin' element={<StudentLogin />}/>
-      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/mainstudentdashboard' element={<Mainstudentdashboard />}/>
+      <Route path='/mainstudentdashboard/mainmentorship' element={<Mainmentorship />}/>
+      <Route path='/mentordashboard' element={<Mentor_Dashboard />}/>
+
+
     </Routes>
     </BrowserRouter>
     </>
