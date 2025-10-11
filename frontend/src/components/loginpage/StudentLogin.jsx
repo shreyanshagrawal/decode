@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -8,31 +9,29 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        const response = await fetch("http://localhost:3001/api/students/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Login failed");
+            return;
+        }
+
+        // Access the student object correctly
+        const student = data.data;
+
+        if (student?._id) localStorage.setItem("studentId", student._id);
+        if (student?.name) localStorage.setItem("studentName", student.name);
+
+        alert("Login successful!");
+        console.log("User ID saved:", localStorage.getItem("studentId"));
         try {
-            console.log(JSON.stringify({ name, email, password }));
-            const response = await fetch("http://localhost:3001/api/students/", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                alert(data.message || "Login failed");
-                return;
-            }
-
-            // Access the student object correctly
-            const student = data.data;
-
-            if (student?._id) localStorage.setItem("studentId", student._id);
-            if (student?.name) localStorage.setItem("studentName", student.name);
-            console.log("Student data:", fetch("http://localhost:3001/api/students/123"));
-
-
-            alert("Login successful!");
-            window.location.href = "/student_dashboard";
+            window.location.href = "/mainstudentdashboard";
         } catch (error) {
             console.error("Login error:", error);
             alert("Something went wrong.");
@@ -117,7 +116,7 @@ const LoginPage = () => {
                 <div className="text-center mt-6 text-gray-400">
                     I have an account?{" "}
                     {/* <a href="#" className="text-green-400 hover:underline"> */}
-                        <Link to="/mainstudentdashboard">Sign In</Link>
+                    <Link to="/mainstudentdashboard">Sign In</Link>
                     {/* </a> */}
                 </div>
             </div>

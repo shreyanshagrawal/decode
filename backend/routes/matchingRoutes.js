@@ -2,7 +2,7 @@ import express from "express";
 import {
     findMatchingMentors,
     assignStudentToMentor,
-} from "../controllers/matchingController.js";
+} from "../controllers/matchingControllers.js";
 
 const router = express.Router();
 

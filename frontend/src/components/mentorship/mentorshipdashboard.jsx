@@ -39,22 +39,27 @@ const Hero = () => {
             <FaSearch className="text-gray-400" />
             <input
               type="text"
-              placeholder="Search by Skill, Domain, or Mentor Name..."
+              placeholder="Search Repo"
               className="bg-transparent w-full py-3 px-3 focus:outline-none text-gray-200 placeholder-gray-500"
             />
           </div>
-          <button className="bg-lime-400 text-black px-6 py-3 rounded-r-md font-semibold hover:bg-lime-500">
-            Search
-          </button>
+        </div>
+
+        <div className="flex w-full max-w-2xl mb-8">
+          <div className="flex items-center bg-zinc-900 border border-gray-700 rounded-l-md px-3 flex-1">
+            <FaSearch className="text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search by Field"
+              className="bg-transparent w-full py-3 px-3 focus:outline-none text-gray-200 placeholder-gray-500"
+            />
+          </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex space-x-6">
           <button className="flex items-center gap-2 bg-lime-400 text-black px-6 py-3 rounded-md font-semibold hover:bg-lime-500">
             <FaUserFriends /> Find Mentors
-          </button>
-          <button className="flex items-center gap-2 border border-gray-700 px-6 py-3 rounded-md text-gray-200 hover:border-lime-400">
-            <FaUserFriends /> Become a Mentor
           </button>
         </div>
       </div>
