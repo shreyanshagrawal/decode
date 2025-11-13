@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -9,7 +10,6 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            console.log(JSON.stringify({ name, email, password }));
             const response = await fetch("http://localhost:3001/api/students/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -28,13 +28,9 @@ const LoginPage = () => {
 
             if (student?._id) localStorage.setItem("studentId", student._id);
             if (student?.name) localStorage.setItem("studentName", student.name);
-            console.log("Student data:", fetch("http://localhost:3001/api/students/123"));
-
 
             alert("Login successful!");
             console.log("User ID saved:", localStorage.getItem("studentId"));
-
-            // Redirect
             window.location.href = "/dashboard";
         } catch (error) {
             console.error("Login error:", error);
@@ -107,7 +103,7 @@ const LoginPage = () => {
                         type="submit"
                         className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
                     >
-                        Sign Up
+                        <Link to="/mentordashboard"></Link>
                     </button>
                 </form>
 
@@ -120,7 +116,7 @@ const LoginPage = () => {
                 <div className="text-center mt-6 text-gray-400">
                     I have an account?{" "}
                     <a href="#" className="text-green-400 hover:underline">
-                        Sign In
+                        <Link to="/mentordashboard">Sign Up</Link>
                     </a>
                 </div>
             </div>
