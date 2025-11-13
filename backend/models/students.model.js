@@ -1,22 +1,28 @@
-
 import mongoose from "mongoose";
 
-const StudentsSchema = new mongoose.Schema(
+const studentsSchema = new mongoose.Schema(
   {
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+
+    // Projects or problem statements student works on
+    reposWorkedOn: [
+      {
+        name: { type: String, required: true },
+        type: { type: String }, // repo type like "AI", "Web", etc.
+        mentors: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Mentors",
+          },
+        ],
+      },
+    ],
   },
-  {
-    timestamps: true, // createdAt, updatedAt
-  },
+  { timestamps: true }
 );
 
-const Students = mongoose.model("Students", StudentsSchema);
-
+const Students = mongoose.model("Students", studentsSchema);
 export default Students;
+
