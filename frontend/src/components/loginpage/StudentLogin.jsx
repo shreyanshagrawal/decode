@@ -1,127 +1,181 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
+const SignupPage = () => {
+  const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        const response = await fetch("http://localhost:3001/api/students/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password }),
-        });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-        const data = await response.json();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-        if (!response.ok) {
-            alert(data.message || "Login failed");
-            return;
-        }
+  const validate = () => {
+    if (!name.trim()) return "Full name is required.";
+    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) return "Please provide a valid email.";
+    if (password.length < 6) return "Password must be at least 6 characters.";
+    return "";
+  };
 
-        // Access the student object correctly
-        const student = data.data;
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError("");
 
-        if (student?._id) localStorage.setItem("studentId", student._id);
-        if (student?.name) localStorage.setItem("studentName", student.name);
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
 
-        alert("Login successful!");
-        console.log("User ID saved:", localStorage.getItem("studentId"));
-        try {
-            window.location.href = "/mainstudentdashboard";
-        } catch (error) {
-            console.error("Login error:", error);
-            alert("Something went wrong.");
-        }
-    };
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:3001/api/students/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), password }),
+      });
 
-    return (
-        <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">
-            <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-6 text-center">
-                    Welcome Back to the Fastest Growing Online Community
-                </h2>
+      const data = await response.json();
 
-                <button className="w-full flex items-center justify-center bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded mb-4">
-                    <img
-                        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                        alt="GitHub"
-                        className="w-5 h-5 mr-2"
-                    />
-                    Sign Up with GitHub
-                </button>
+      if (!response.ok) {
+        setError(data.message || "Signup failed. Please try again.");
+        setLoading(false);
+        return;
+      }
 
-                <div className="text-center text-gray-400 mb-4">or</div>
+      const student = data.data || data.student || data; // be defensive about API shape
+      if (student?._id) localStorage.setItem("studentId", student._id);
+      if (student?.name) localStorage.setItem("studentName", student.name);
 
-                <form onSubmit={handleLogin}>
-                    <div className="mb-4">
-                        <label className="block mb-1">Full Name</label>
-                        <input
-                            type="text"
-                            placeholder="Enter you name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-                            required
-                        />
-                    </div>
+      // success -> navigate to dashboard
+      navigate("/mainstudentdashboard");
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                    <div className="mb-4 relative">
-                        <label className="block mb-1">Email Address</label>
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-                            required
-                        />
-                    </div>
+  const handleGithubSignup = () => {
+    // replace path with your backend OAuth endpoint if different
+    window.location.href = "http://localhost:3001/auth/github";
+  };
 
-                    <div className="mb-4 relative">
-                        <label className="block mb-1">Password</label>
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Enter your password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-                            required
-                        />
-                        <span
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-9 cursor-pointer text-gray-400"
-                        >
-                            {showPassword ? "🙈" : "👁️"}
-                        </span>
-                    </div>
+  return (
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white px-4">
+      <div className="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Join the Fastest Growing Online Community
+        </h2>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-                    >
-                        Sign Up
-                    </button>
-                </form>
+        <button
+          type="button"
+          onClick={handleGithubSignup}
+          className="w-full flex items-center justify-center bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded mb-4"
+          aria-label="Sign up with GitHub"
+        >
+          <img
+            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+            alt=""
+            className="w-5 h-5 mr-2"
+            aria-hidden
+          />
+          Sign up with GitHub
+        </button>
 
-                <div className="text-center mt-4">
-                    <a href="#" className="text-green-400 hover:underline">
-                        Forgot your password?
-                    </a>
-                </div>
+        <div className="text-center text-gray-400 mb-4">or</div>
 
-                <div className="text-center mt-6 text-gray-400">
-                    I have an account?{" "}
-                    {/* <a href="#" className="text-green-400 hover:underline"> */}
-                    <Link to="/mainstudentdashboard">Sign In</Link>
-                    {/* </a> */}
-                </div>
+        <form onSubmit={handleSignup} noValidate>
+          {error && (
+            <div className="mb-4 text-sm text-red-400 bg-red-900/20 p-2 rounded">
+              {error}
             </div>
+          )}
+
+          <div className="mb-4">
+            <label htmlFor="name" className="block mb-1">
+              Full Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
+              required
+              autoComplete="name"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="email" className="block mb-1">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
+              required
+              autoComplete="email"
+            />
+          </div>
+
+          <div className="mb-4 relative">
+            <label htmlFor="password" className="block mb-1">
+              Password
+            </label>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none pr-10"
+              required
+              autoComplete="new-password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((s) => !s)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full ${loading ? "bg-green-400" : "bg-green-500 hover:bg-green-600"} text-white py-2 px-4 rounded`}
+          >
+            {loading ? "Signing up..." : "Sign Up"}
+          </button>
+        </form>
+
+        <div className="text-center mt-4">
+          <a href="#" className="text-green-400 hover:underline">
+            Forgot your password?
+          </a>
         </div>
-    );
+
+        <div className="text-center mt-6 text-gray-400">
+          Already have an account?{" "}
+          <Link to="/login" className="text-green-400 hover:underline">
+            Sign In
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default LoginPage;
+export default SignupPage;
+

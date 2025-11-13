@@ -21,7 +21,7 @@ const __dirname = path.resolve();
 
 // Allow requests from your frontend
 app.use(cors({
-    origin: "http://localhost:5173", // your frontend URL
+    origin: "http://localhost:5174", // your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
