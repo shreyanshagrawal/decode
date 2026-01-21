@@ -28,13 +28,11 @@ The system was designed and developed as part of a hackathon, focusing on rapid 
 
 🛠️ Tech Stack
 
-(Update if needed)
-
 Frontend: React / Next.js
 
 Backend: Node.js / Express
 
-Database: PostgreSQL
+Database: MongoDB
 
 Other: REST APIs, GitHub, Hackathon tooling
 
@@ -47,3 +45,4 @@ Mentor matching logic based on predefined criteria
 Simple and scalable system design
 
 Built with extensibility in mind for future improvements
+
